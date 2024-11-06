@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,19 +24,23 @@ import lombok.Data;
 @Table(schema = "carrito", name = "carrito")
 public class Carrito {
 
+	@Schema(description = "Id del carrito")
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Schema(description = "Usuario dueño del carrito")
 	@JsonManagedReference
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
+	@Schema(description = "Lista de productos agregados al carrito")
 	@OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProductoCarrito> productoCarritos;
 	
+	@Schema(description = "Total de los agregado al carrito")
 	@Transient
 	private Double total;
 

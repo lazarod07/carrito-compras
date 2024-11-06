@@ -90,6 +90,7 @@ public class CarritoServiceImpl implements CarritoService {
 		return Boolean.TRUE;
 	}
 
+	@Transactional
 	@Override
 	public Carrito actualizarCantidad(GuardarCarrito guardarCarrito) {
 
