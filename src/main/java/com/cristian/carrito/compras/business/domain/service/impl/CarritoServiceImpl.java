@@ -90,14 +90,6 @@ public class CarritoServiceImpl implements CarritoService {
 		return Boolean.TRUE;
 	}
 
-	public void agregarNuevoProductoList(Carrito carrito, Integer cantidad, Producto producto) {
-		ProductoCarrito productoCarrito = new ProductoCarrito();
-		productoCarrito.setCantida(cantidad);
-		productoCarrito.setProducto(producto);
-		productoCarrito.setCarrito(carrito);
-		carrito.getProductoCarritos().add(productoCarrito);
-	}
-
 	@Override
 	public Carrito actualizarCantidad(GuardarCarrito guardarCarrito) {
 
@@ -131,6 +123,26 @@ public class CarritoServiceImpl implements CarritoService {
 		}
 
 		return carritoRepository.save(carrito);
+	}
+
+	@Override
+	public Carrito ver(Long usuarioId) {
+
+		Usuario usuario = usuarioRepository.findById(usuarioId)
+				.orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+		Carrito carrito = carritoRepository.findByUsuario(usuario)
+				.orElseThrow(() -> new RuntimeException("No hay carrito"));
+
+		return carrito;
+	}
+
+	public void agregarNuevoProductoList(Carrito carrito, Integer cantidad, Producto producto) {
+		ProductoCarrito productoCarrito = new ProductoCarrito();
+		productoCarrito.setCantida(cantidad);
+		productoCarrito.setProducto(producto);
+		productoCarrito.setCarrito(carrito);
+		carrito.getProductoCarritos().add(productoCarrito);
 	}
 
 }

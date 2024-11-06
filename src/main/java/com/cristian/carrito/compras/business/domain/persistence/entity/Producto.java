@@ -12,13 +12,15 @@ import lombok.Data;
 @Entity
 @Table(schema = "carrito", name = "producto")
 public class Producto {
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "nombre")
 	private String nombre;
+
+	private Double precio;
 
 }
